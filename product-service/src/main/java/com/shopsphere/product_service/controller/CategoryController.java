@@ -34,4 +34,8 @@ public class CategoryController {
     }
 
     // put: update a category by id (ADMIN only)
+    @PutMapping("/{id}")
+    public ResponseEntity<CategoryResponseDto> updateCategory(@PathVariable Long id, @RequestBody CategoryRequestDto categoryRequestDto) {
+        return categoryService.updateCategory(id, categoryRequestDto);
+    }
 }

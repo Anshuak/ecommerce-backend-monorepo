@@ -47,4 +47,19 @@ public class CategoryServiceImpl implements CategoryService {
         CategoryResponseDto categoryResponseDto = modelMapper.map(category.orElse(null), CategoryResponseDto.class);
         return ResponseEntity.ok(categoryResponseDto);
     }
+
+    @Override
+    public ResponseEntity<CategoryResponseDto> updateCategory(Long id, CategoryRequestDto categoryRequestDto) {
+        Optional<Category> existingCategoryOpt = categoryRepository.findById(id);
+        if (existingCategoryOpt.isPresent()) {
+            Category existingCategory = existingCategoryOpt.get();
+            existingCategory.setName(categoryRequestDto.getName());
+            existingCategory.setDescription(categoryRequestDto.getDescription());
+            existingCategory.setActive(categoryRequestDto.getActive());
+            Category updatedCategory = categoryRepository.save(existingCategory);
+            CategoryResponseDto updatedCategoryResponseDto = modelMapper.map(updatedCategory, CategoryResponseDto.class);
+            return ResponseEntity.ok(updatedCategoryResponseDto);
+        }
+        return ResponseEntity.status(HttpStatus.NOT_FOUND).body(null);
+    }
 }

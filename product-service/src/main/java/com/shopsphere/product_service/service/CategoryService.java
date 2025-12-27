@@ -13,10 +13,10 @@ public interface CategoryService {
 
    // get all categories
     public ResponseEntity<List<CategoryResponseDto>> getAllCategories();
-//
-//    // get category by id
+
+    // get category by id
     public ResponseEntity<CategoryResponseDto> getCategoryById(Long id);
-//
-//    // update category by id
-//    public ResponseEntity<CategoryResponseDto> updateCategory(Long id, CategoryResponseDto categoryResponseDto);
+
+    // update category by id
+    public ResponseEntity<CategoryResponseDto> updateCategory(Long id, CategoryRequestDto categoryRequestDto);
 }
