@@ -5,6 +5,7 @@ import com.shopsphere.product_service.dto.CategoryResponseDto;
 import com.shopsphere.product_service.service.CategoryService;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
+import jakarta.validation.Valid;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -22,7 +23,7 @@ public class CategoryController {
     // post: create a new category (ADMIN only)
     @Operation(summary = "Create a new category")
     @PostMapping("/")
-    public ResponseEntity<CategoryResponseDto> createCategory(@RequestBody CategoryRequestDto categoryRequestDto) {
+    public ResponseEntity<CategoryResponseDto> createCategory(@Valid @RequestBody CategoryRequestDto categoryRequestDto) {
         return categoryService.createCategory(categoryRequestDto);
     }
 
@@ -42,7 +43,7 @@ public class CategoryController {
     // put: update a category by id (ADMIN only)
     @Operation(summary = "Update existing category")
     @PutMapping("/{id}")
-    public ResponseEntity<CategoryResponseDto> updateCategory(@PathVariable Long id, @RequestBody CategoryRequestDto categoryRequestDto) {
+    public ResponseEntity<CategoryResponseDto> updateCategory(@PathVariable Long id, @Valid @RequestBody CategoryRequestDto categoryRequestDto) {
         return categoryService.updateCategory(id, categoryRequestDto);
     }
 }
