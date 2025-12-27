@@ -11,6 +11,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Optional;
 
 @Service
 public class CategoryServiceImpl implements CategoryService {
@@ -38,5 +39,12 @@ public class CategoryServiceImpl implements CategoryService {
         List<CategoryResponseDto> categoryResponseDtos = categories.stream()
                 .map(category -> modelMapper.map(category, CategoryResponseDto.class)).toList();
         return ResponseEntity.ok(categoryResponseDtos);
+    }
+
+    @Override
+    public ResponseEntity<CategoryResponseDto> getCategoryById(Long id) {
+        Optional<Category> category = categoryRepository.findById(id);
+        CategoryResponseDto categoryResponseDto = modelMapper.map(category.orElse(null), CategoryResponseDto.class);
+        return ResponseEntity.ok(categoryResponseDto);
     }
 }

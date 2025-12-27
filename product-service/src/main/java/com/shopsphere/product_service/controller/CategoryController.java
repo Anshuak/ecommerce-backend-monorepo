@@ -28,6 +28,10 @@ public class CategoryController {
         return categoryService.getAllCategories();
     }
     // get: retrieve a category by id (public)
+    @GetMapping("/{id}")
+    public ResponseEntity<CategoryResponseDto> getCategoryById(@PathVariable Long id) {
+        return categoryService.getCategoryById(id);
+    }
 
     // put: update a category by id (ADMIN only)
 }

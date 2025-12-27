@@ -15,7 +15,7 @@ public interface CategoryService {
     public ResponseEntity<List<CategoryResponseDto>> getAllCategories();
 //
 //    // get category by id
-//    public ResponseEntity<CategoryResponseDto> getCategoryById(Long id);
+    public ResponseEntity<CategoryResponseDto> getCategoryById(Long id);
 //
 //    // update category by id
 //    public ResponseEntity<CategoryResponseDto> updateCategory(Long id, CategoryResponseDto categoryResponseDto);
