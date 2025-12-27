@@ -10,6 +10,8 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+
 @Service
 public class CategoryServiceImpl implements CategoryService {
 
@@ -28,5 +30,13 @@ public class CategoryServiceImpl implements CategoryService {
         Category savedCategory = categoryRepository.save(category);
         CategoryResponseDto categoryResponseDto = modelMapper.map(savedCategory, CategoryResponseDto.class);
         return ResponseEntity.status(HttpStatus.CREATED).body(categoryResponseDto);
+    }
+
+    @Override
+    public ResponseEntity<List<CategoryResponseDto>> getAllCategories() {
+        List<Category> categories = categoryRepository.findAll();
+        List<CategoryResponseDto> categoryResponseDtos = categories.stream()
+                .map(category -> modelMapper.map(category, CategoryResponseDto.class)).toList();
+        return ResponseEntity.ok(categoryResponseDtos);
     }
 }

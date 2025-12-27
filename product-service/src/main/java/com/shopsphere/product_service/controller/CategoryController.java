@@ -4,10 +4,7 @@ import com.shopsphere.product_service.dto.CategoryRequestDto;
 import com.shopsphere.product_service.dto.CategoryResponseDto;
 import com.shopsphere.product_service.service.CategoryService;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 @RestController
 @RequestMapping("/api/categories")
@@ -26,7 +23,10 @@ public class CategoryController {
     }
 
     // get: retrieve all categories (public)
-
+    @GetMapping("/")
+    public ResponseEntity<java.util.List<CategoryResponseDto>> getAllCategories() {
+        return categoryService.getAllCategories();
+    }
     // get: retrieve a category by id (public)
 
     // put: update a category by id (ADMIN only)

@@ -12,7 +12,7 @@ public interface CategoryService {
    public ResponseEntity<CategoryResponseDto> createCategory(CategoryRequestDto categoryRequestDto);
 
    // get all categories
-//    public ResponseEntity<List<CategoryResponseDto>> getAllCategories();
+    public ResponseEntity<List<CategoryResponseDto>> getAllCategories();
 //
 //    // get category by id
 //    public ResponseEntity<CategoryResponseDto> getCategoryById(Long id);
