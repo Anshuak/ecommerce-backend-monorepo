@@ -12,6 +12,8 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+
 @Service
 public class ProductServiceImpl implements ProductService {
 
@@ -36,6 +38,15 @@ public class ProductServiceImpl implements ProductService {
         Product savedProduct = productRepository.save(product);
         ProductResponseDto productResponseDto = modelMapper.map(savedProduct, ProductResponseDto.class);
         return ResponseEntity.status(HttpStatus.CREATED).body(productResponseDto);
+    }
+
+    @Override
+    public ResponseEntity<List<ProductResponseDto>> getAllProducts() {
+        List<Product> products = productRepository.findAll();
+        List<ProductResponseDto> productResponseDtos = products.stream()
+                .map(product -> modelMapper.map(product, ProductResponseDto.class))
+                .toList();
+        return ResponseEntity.ok(productResponseDtos);
     }
 
     @Override

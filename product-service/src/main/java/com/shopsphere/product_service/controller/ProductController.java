@@ -9,6 +9,8 @@ import jakarta.validation.Valid;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
+
 @RestController
 @RequestMapping("/api/products")
 @Tag(name = "Product", description = "Product management APIs")
@@ -27,6 +29,10 @@ public class ProductController {
     }
 
     //GET	/products	Get all products (paginated)
+    @GetMapping("/")
+    public ResponseEntity<List<ProductResponseDto>> getAllProducts() {
+        return productService.getAllProducts();
+    }
 
     //GET	/products/{id}	Get product by ID
     @GetMapping("/{id}")

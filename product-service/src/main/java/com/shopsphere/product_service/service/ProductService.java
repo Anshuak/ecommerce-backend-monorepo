@@ -4,10 +4,16 @@ import com.shopsphere.product_service.dto.ProductRequestDto;
 import com.shopsphere.product_service.dto.ProductResponseDto;
 import org.springframework.http.ResponseEntity;
 
+import java.util.List;
+
 public interface ProductService {
 
-   // create a new product
+    // create a new product
     ResponseEntity<ProductResponseDto> createProduct(ProductRequestDto productRequestDto);
+
+    // get all products
+    ResponseEntity<List<ProductResponseDto>> getAllProducts();
+
     // get product by id
     ResponseEntity<ProductResponseDto> getProductById(Long id);
 }
