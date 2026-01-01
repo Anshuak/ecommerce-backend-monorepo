@@ -41,6 +41,10 @@ public class ProductController {
     }
 
     //GET	/products/category/{categoryId}	Get products by category
+    @GetMapping("/category/{categoryId}")
+    public ResponseEntity<List<ProductResponseDto>> getProductsByCategory(@PathVariable Long categoryId) {
+        return productService.getProductsByCategoryId(categoryId);
+    }
 
     //PUT	/products/{id}	Update product (ADMIN)
 

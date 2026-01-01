@@ -16,4 +16,7 @@ public interface ProductService {
 
     // get product by id
     ResponseEntity<ProductResponseDto> getProductById(Long id);
+
+    // get product by category id
+    ResponseEntity<List<ProductResponseDto>> getProductsByCategoryId(Long categoryId);
 }

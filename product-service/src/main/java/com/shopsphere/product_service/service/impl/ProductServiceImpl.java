@@ -56,4 +56,13 @@ public class ProductServiceImpl implements ProductService {
         ProductResponseDto productResponseDto = modelMapper.map(product, ProductResponseDto.class);
         return ResponseEntity.ok(productResponseDto);
     }
+
+    @Override
+    public ResponseEntity<List<ProductResponseDto>> getProductsByCategoryId(Long categoryId) {
+        List<Product> products = productRepository.getProductsByCategoryId(categoryId);
+        List<ProductResponseDto> productResponseDtos = products.stream()
+                .map(product -> modelMapper.map(product, ProductResponseDto.class))
+                .toList();
+        return ResponseEntity.ok(productResponseDtos);
+    }
 }
