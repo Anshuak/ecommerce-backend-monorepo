@@ -65,4 +65,30 @@ public class ProductServiceImpl implements ProductService {
                 .toList();
         return ResponseEntity.ok(productResponseDtos);
     }
+
+    @Override
+    public ResponseEntity<ProductResponseDto> updateProduct(Long id, ProductRequestDto productRequestDto) {
+        Product product = productRepository.findById(id)
+                .orElseThrow(() -> new IllegalArgumentException("Product not found with id: " + id));
+
+        // Update simple fields from the incoming DTO
+        product.setName(productRequestDto.getName());
+        product.setDescription(productRequestDto.getDescription());
+        product.setPrice(productRequestDto.getPrice());
+        product.setSku(productRequestDto.getSku());
+        product.setActive(productRequestDto.isActive());
+
+        // Update category only when a categoryId is provided
+        if (productRequestDto.getCategoryId() != null) {
+            Category category = categoryRepository.findById(productRequestDto.getCategoryId())
+                    .orElseThrow(() -> new IllegalArgumentException("Category not found with id: " + productRequestDto.getCategoryId()));
+            product.setCategory(category);
+        }
+
+        Product updatedProduct = productRepository.save(product);
+        ProductResponseDto productResponseDto = modelMapper.map(updatedProduct, ProductResponseDto.class);
+        return ResponseEntity.ok(productResponseDto);
+    }
+
+
 }

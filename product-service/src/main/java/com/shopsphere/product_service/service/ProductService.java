@@ -19,4 +19,7 @@ public interface ProductService {
 
     // get product by category id
     ResponseEntity<List<ProductResponseDto>> getProductsByCategoryId(Long categoryId);
+
+    // update product by id
+    ResponseEntity<ProductResponseDto> updateProduct(Long id, ProductRequestDto productRequestDto);
 }
