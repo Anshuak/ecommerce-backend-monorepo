@@ -8,4 +8,6 @@ public interface ProductService {
 
    // create a new product
     ResponseEntity<ProductResponseDto> createProduct(ProductRequestDto productRequestDto);
+    // get product by id
+    ResponseEntity<ProductResponseDto> getProductById(Long id);
 }

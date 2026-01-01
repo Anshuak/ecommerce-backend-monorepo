@@ -37,4 +37,12 @@ public class ProductServiceImpl implements ProductService {
         ProductResponseDto productResponseDto = modelMapper.map(savedProduct, ProductResponseDto.class);
         return ResponseEntity.status(HttpStatus.CREATED).body(productResponseDto);
     }
+
+    @Override
+    public ResponseEntity<ProductResponseDto> getProductById(Long id) {
+        Product product = productRepository.findById(id)
+                .orElseThrow(() -> new IllegalArgumentException("Product not found with id: " + id));
+        ProductResponseDto productResponseDto = modelMapper.map(product, ProductResponseDto.class);
+        return ResponseEntity.ok(productResponseDto);
+    }
 }

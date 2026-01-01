@@ -29,6 +29,10 @@ public class ProductController {
     //GET	/products	Get all products (paginated)
 
     //GET	/products/{id}	Get product by ID
+    @GetMapping("/{id}")
+    public ResponseEntity<ProductResponseDto> getProductById(@PathVariable Long id) {
+        return productService.getProductById(id);
+    }
 
     //GET	/products/category/{categoryId}	Get products by category
 
