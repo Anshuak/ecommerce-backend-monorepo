@@ -1,0 +1,40 @@
+package com.shopsphere.product_service.service.impl;
+
+import com.shopsphere.product_service.dto.ProductRequestDto;
+import com.shopsphere.product_service.dto.ProductResponseDto;
+import com.shopsphere.product_service.entity.Category;
+import com.shopsphere.product_service.entity.Product;
+import com.shopsphere.product_service.repository.CategoryRepository;
+import com.shopsphere.product_service.repository.ProductRepository;
+import com.shopsphere.product_service.service.ProductService;
+import org.modelmapper.ModelMapper;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
+import org.springframework.stereotype.Service;
+
+@Service
+public class ProductServiceImpl implements ProductService {
+
+    private final ModelMapper modelMapper;
+    private final ProductRepository productRepository;
+    private final CategoryRepository categoryRepository;
+
+    public ProductServiceImpl(ProductRepository productRepository, ModelMapper modelMapper, CategoryRepository categoryRepository) {
+        this.modelMapper = modelMapper;
+        this.productRepository = productRepository;
+        this.categoryRepository = categoryRepository;
+    }
+
+    @Override
+    public ResponseEntity<ProductResponseDto> createProduct(ProductRequestDto productRequestDto) {
+        // Validate category exists (many-to-one relationship)
+        Category category = categoryRepository.findById(productRequestDto.getCategoryId())
+                .orElseThrow(() -> new IllegalArgumentException("Category not found with id: " + productRequestDto.getCategoryId()));
+
+        Product product = modelMapper.map(productRequestDto, Product.class);
+        product.setCategory(category);
+        Product savedProduct = productRepository.save(product);
+        ProductResponseDto productResponseDto = modelMapper.map(savedProduct, ProductResponseDto.class);
+        return ResponseEntity.status(HttpStatus.CREATED).body(productResponseDto);
+    }
+}
